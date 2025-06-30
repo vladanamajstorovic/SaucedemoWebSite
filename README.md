@@ -31,28 +31,6 @@ Ensure the Excel file with usernames/passwords is in the correct resources folde
 Run Tests
 Run test classes from the tests package.
 
-📊 Project Structure
-
-SaucedemoWebSite/
-│
-├── pages/               # Page Object classes with @FindBy
-│   ├── LoginPage.java
-│   ├── InventoryPage.java
-│   ├── CartPage.java
-│   └── ...
-│
-├── tests/               # Test classes for each page
-│   ├── LoginTests.java
-│   ├── CartTests.java
-│   └── ...
-│
-├── utils/               # Utilities (Excel Reader, DriverFactory, etc.)
-│   ├── ExcelUtils.java
-│   └── ...
-│
-└── README.md
-
-
 💡 Key Learning Points
 
 *Building robust and maintainable Selenium frameworks.
