@@ -7,7 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 
 public class BurgerMenu extends BaseTest {
     public BurgerMenu() {
-        PageFactory.initElements(driver, this);}
+        PageFactory.initElements(driver, this);
+    }
 
     @FindBy(id = "react-burger-menu-btn")
     public WebElement burgerMenuTab;
@@ -31,25 +32,23 @@ public class BurgerMenu extends BaseTest {
     public WebElement resetTab;
 
 
-
-
-    public void clickOnBurgerMenuTab(){
+    public void clickOnBurgerMenuTab() {
         burgerMenuTab.click();
     }
 
-    public void clickOnAllItems(){
+    public void clickOnAllItems() {
         allItems.click();
     }
 
-    public void clickOnAboutTab(){
+    public void clickOnAboutTab() {
         aboutTab.click();
     }
 
-    public void clickOnLogoutTab(){
+    public void clickOnLogoutTab() {
         logutTab.click();
     }
 
-    public void clickOnResetTab(){
+    public void clickOnResetTab() {
         resetTab.click();
     }
 }

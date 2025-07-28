@@ -29,33 +29,33 @@ public class CheckOutPageStepTwoTest extends BaseTest {
         inventoryPage = new InventoryPage();
         cartPage = new CartPage();
         checkOutPage = new CheckOutPage();
-        checkOutPageStepTwo=new CheckOutPageStepTwo();
-        checkOutCompletePage=new CheckOutCompletePage();
+        checkOutPageStepTwo = new CheckOutPageStepTwo();
+        checkOutCompletePage = new CheckOutCompletePage();
 
         loginPage.addUsername("standard_user");
         loginPage.addPassword("secret_sauce");
         loginPage.clickOnLoginButton();
 
 
-}
+    }
 
-@Test
+    @Test
     public void finishOrderWhenCartIsEmpty() throws InterruptedException {
-    inventoryPage.clickCartButton();
-    cartPage.clickOnCheckoutTab();
-    checkOutPage.addFirstName("Milena");
-    checkOutPage.addLastName("Milic");
-    checkOutPage.addPostalCode("11000");
-    Thread.sleep(2000);
-    checkOutPage.clickContinueButton();
-    checkOutPageStepTwo.clickOnFinishButton();
-    Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/checkout-complete.html");
-    Assert.assertEquals(checkOutCompletePage.header.getText(),"Thank you for your order!");
-    Assert.assertTrue(checkOutCompletePage.backHomeButton.isDisplayed());
+        inventoryPage.clickCartButton();
+        cartPage.clickOnCheckoutTab();
+        checkOutPage.addFirstName("Milena");
+        checkOutPage.addLastName("Milic");
+        checkOutPage.addPostalCode("11000");
+        Thread.sleep(2000);
+        checkOutPage.clickContinueButton();
+        checkOutPageStepTwo.clickOnFinishButton();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/checkout-complete.html");
+        Assert.assertEquals(checkOutCompletePage.header.getText(), "Thank you for your order!");
+        Assert.assertTrue(checkOutCompletePage.backHomeButton.isDisplayed());
 
-}
+    }
 
-    @Test (priority = 1)
+    @Test(priority = 1)
     public void finishOrderWhenCartIsFull() throws InterruptedException {
         inventoryPage.addRandomItemsToCart(4);
         inventoryPage.clickCartButton();
@@ -67,13 +67,13 @@ public class CheckOutPageStepTwoTest extends BaseTest {
         checkOutPage.clickContinueButton();
         checkOutPageStepTwo.clickOnFinishButton();
         wait.until(ExpectedConditions.elementToBeClickable(checkOutCompletePage.backHomeButton));
-        Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/checkout-complete.html");
-        Assert.assertEquals(checkOutCompletePage.header.getText(),"Thank you for your order!");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/checkout-complete.html");
+        Assert.assertEquals(checkOutCompletePage.header.getText(), "Thank you for your order!");
         Assert.assertTrue(checkOutCompletePage.backHomeButton.isDisplayed());
 
     }
 
-    @Test (priority = 1)
+    @Test(priority = 1)
     public void totalPriceCounterWorksCorrectlyForDifferentCurrencies() throws InterruptedException {
 
         inventoryPage.addRandomItemsToCart(4);
@@ -100,14 +100,14 @@ public class CheckOutPageStepTwoTest extends BaseTest {
 
 
         //TAX AMOUNT
-       checkOutPageStepTwo.calculatedTaxAmount();
+        checkOutPageStepTwo.calculatedTaxAmount();
         System.out.println("Calculated TAX: $" + checkOutPageStepTwo.calculatedTaxAmount());
 
         checkOutPageStepTwo.displayedTaxAmount();
-        System.out.println("Displayed TAX: $" +checkOutPageStepTwo.displayedTaxAmount());
+        System.out.println("Displayed TAX: $" + checkOutPageStepTwo.displayedTaxAmount());
 
 
-        Assert.assertEquals(checkOutPageStepTwo.displayedTaxAmount(),checkOutPageStepTwo.calculatedTaxAmount());
+        Assert.assertEquals(checkOutPageStepTwo.displayedTaxAmount(), checkOutPageStepTwo.calculatedTaxAmount());
 
 
         //TOTAL AMOUNT
@@ -118,10 +118,7 @@ public class CheckOutPageStepTwoTest extends BaseTest {
         System.out.println("Calculated Total including TAX: $" + checkOutPageStepTwo.calculatedTotal());
 
 
-
-        Assert.assertEquals(checkOutPageStepTwo.displayedTotal(),checkOutPageStepTwo.calculatedTotal());
-
-
+        Assert.assertEquals(checkOutPageStepTwo.displayedTotal(), checkOutPageStepTwo.calculatedTotal());
 
 
     }

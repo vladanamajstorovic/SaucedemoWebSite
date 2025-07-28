@@ -7,8 +7,9 @@ import org.openqa.selenium.support.PageFactory;
 import static Base.BaseTest.driver;
 
 public class CheckOutCompletePage {
-        public CheckOutCompletePage() {
-            PageFactory.initElements(driver, this);}
+    public CheckOutCompletePage() {
+        PageFactory.initElements(driver, this);
+    }
 
     @FindBy(className = "complete-header")
     public WebElement header;
@@ -16,7 +17,7 @@ public class CheckOutCompletePage {
     @FindBy(id = "back-to-products")
     public WebElement backHomeButton;
 
-    public void clickHomeButton(){
+    public void clickHomeButton() {
         backHomeButton.click();
     }
 

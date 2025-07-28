@@ -11,26 +11,25 @@ import org.testng.asserts.SoftAssert;
 
 public class BaseTest {
 
-        public static WebDriver driver;
-        public WebDriverWait wait;
-        public LoginPage loginPage;
-        public InventoryPage inventoryPage;
-        public CartPage cartPage;
-        public ExcelReader excelReader;
-        public CheckOutPage checkOutPage;
-        public CheckOutPageStepTwo checkOutPageStepTwo;
-        public CheckOutCompletePage checkOutCompletePage;
-        public BurgerMenu burgerMenu;
-        public ExcelDataProvider excelDataProvider;
-        public SoftAssert softAssert;
-        public InventoryItemPage inventoryItemPage;
+    public static WebDriver driver;
+    public WebDriverWait wait;
+    public LoginPage loginPage;
+    public InventoryPage inventoryPage;
+    public CartPage cartPage;
+    public ExcelReader excelReader;
+    public CheckOutPage checkOutPage;
+    public CheckOutPageStepTwo checkOutPageStepTwo;
+    public CheckOutCompletePage checkOutCompletePage;
+    public BurgerMenu burgerMenu;
+    public ExcelDataProvider excelDataProvider;
+    public SoftAssert softAssert;
+    public InventoryItemPage inventoryItemPage;
 
 
-        @BeforeClass
-        public void setUp() {
-            WebDriverManager.chromedriver().setup();
-        }
-
+    @BeforeClass
+    public void setUp() {
+        WebDriverManager.chromedriver().setup();
+    }
 
 
 }

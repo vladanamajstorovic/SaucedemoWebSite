@@ -20,7 +20,7 @@ public class LoginPage extends BaseTest {
     WebElement passwordField;
 
 
-    @FindBy(id= "login-button")
+    @FindBy(id = "login-button")
     public WebElement loginButton;
 
     @FindBy(id = "shopping_cart_container")
@@ -45,26 +45,25 @@ public class LoginPage extends BaseTest {
     WebElement burgerMenu;
 
 
-
-    public void addUsername(String username){
+    public void addUsername(String username) {
         usernameField.clear();
         usernameField.sendKeys(username);
     }
 
-    public void addPassword(String password){
+    public void addPassword(String password) {
         usernameField.clear();
         passwordField.sendKeys(password);
     }
 
-    public void  clickOnLoginButton(){
+    public void clickOnLoginButton() {
         loginButton.click();
     }
 
-    public void clickOnLogoutButton(){
+    public void clickOnLogoutButton() {
         logoutButton.click();
     }
 
-    public void clickOnBurgerMenu(){
+    public void clickOnBurgerMenu() {
         burgerMenu.click();
     }
 

@@ -23,40 +23,39 @@ public class InventoryItemPage extends BaseTest {
     public WebElement addToCartButton;
 
     @FindBy(id = "remove")
-     public WebElement removeButton;
+    public WebElement removeButton;
 
     @FindBy(className = "inventory_details_img")
-    public   WebElement itemImg;
+    public WebElement itemImg;
 
     @FindBy(className = "shopping_cart_link")
-     public WebElement cartIcon;
+    public WebElement cartIcon;
 
     @FindBy(className = "shopping_cart_badge")
     public WebElement cartBadge;
 
     @FindBy(id = "back-to-products")
-      public  WebElement backToProductsButton;
+    public WebElement backToProductsButton;
 
 
-
-    public void  clickOnBackToProductsButton(){
+    public void clickOnBackToProductsButton() {
         backToProductsButton.click();
     }
 
-    public void getTextFromCartBadge(){
-        String numberOfCartItems=cartBadge.getText();
+    public void getTextFromCartBadge() {
+        String numberOfCartItems = cartBadge.getText();
     }
 
 
-    public void  clickAddToCart(){
+    public void clickAddToCart() {
         addToCartButton.click();
     }
 
-    public void  clickRemoveFromCart(){
+    public void clickRemoveFromCart() {
         removeButton.click();
     }
 
-    public void clickCartIcon(){
+    public void clickCartIcon() {
         cartIcon.click();
     }
 

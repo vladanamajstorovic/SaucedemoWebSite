@@ -22,10 +22,10 @@ public class BurgerMenuTest extends BaseTest {
         driver.get("https://www.saucedemo.com/");
 
         wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        burgerMenu=new BurgerMenu();
-        loginPage=new LoginPage();
-        inventoryPage=new InventoryPage();
-        cartPage= new CartPage();
+        burgerMenu = new BurgerMenu();
+        loginPage = new LoginPage();
+        inventoryPage = new InventoryPage();
+        cartPage = new CartPage();
 
         loginPage.addUsername("standard_user");
         loginPage.addPassword("secret_sauce");
@@ -34,42 +34,42 @@ public class BurgerMenuTest extends BaseTest {
 
     }
 
-    @Test  (priority = 1)
+    @Test(priority = 1)
     public void openBurgerMenu() throws InterruptedException {
         burgerMenu.clickOnBurgerMenuTab();
         Thread.sleep(2000);
-        Assert.assertEquals(burgerMenu.burgerMenuWrap.getAttribute("aria-hidden"),"false");
+        Assert.assertEquals(burgerMenu.burgerMenuWrap.getAttribute("aria-hidden"), "false");
 
     }
 
-    @Test (priority = 3)
-    public void openAllItems()  {
+    @Test(priority = 3)
+    public void openAllItems() {
         burgerMenu.clickOnBurgerMenuTab();
         wait.until(ExpectedConditions.elementToBeClickable(burgerMenu.allItems));
         burgerMenu.clickOnAllItems();
     }
 
 
-    @Test  (priority = 3)
-    public void openAboutSection()  {
+    @Test(priority = 3)
+    public void openAboutSection() {
         burgerMenu.clickOnBurgerMenuTab();
         wait.until(ExpectedConditions.elementToBeClickable(burgerMenu.aboutTab));
         burgerMenu.clickOnAboutTab();
-        Assert.assertEquals(driver.getCurrentUrl(),"https://saucelabs.com/");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://saucelabs.com/");
     }
 
 
-    @Test (priority = 1)
-    public void logout()  {
+    @Test(priority = 1)
+    public void logout() {
         burgerMenu.clickOnBurgerMenuTab();
         wait.until(ExpectedConditions.elementToBeClickable(burgerMenu.logutTab));
         burgerMenu.clickOnLogoutTab();
-        Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/");
         Assert.assertTrue(loginPage.loginButton.isDisplayed());
     }
 
-    @Test (priority = 3)
-    public void resetAppState()  {
+    @Test(priority = 3)
+    public void resetAppState() {
         inventoryPage.clickAddToCartButton();
         burgerMenu.clickOnBurgerMenuTab();
         wait.until(ExpectedConditions.elementToBeClickable(burgerMenu.resetTab));
@@ -77,16 +77,13 @@ public class BurgerMenuTest extends BaseTest {
 
         boolean isPresent = false;
         try {
-            isPresent=cartPage.cartBadge.isDisplayed();
-        }
-        catch (Exception e) {
+            isPresent = cartPage.cartBadge.isDisplayed();
+        } catch (Exception e) {
 
         }
         Assert.assertFalse(isPresent);
 
     }
-
-
 
 
     @AfterMethod

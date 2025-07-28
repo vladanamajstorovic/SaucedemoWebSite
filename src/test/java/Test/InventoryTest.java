@@ -46,31 +46,25 @@ public class InventoryTest extends BaseTest {
     }
 
 
-    @Test (priority = 1)
-    public void addToCart()  {
+    @Test(priority = 1)
+    public void addToCart() {
         wait.until(ExpectedConditions.visibilityOf(inventoryPage.addToCartButton));
         inventoryPage.clickAddToCartButton();
         Assert.assertTrue(cartPage.removeFromCart.isDisplayed());
     }
 
 
-    @Test (priority = 2)
+    @Test(priority = 2)
     public void allInventoryElementsAreVisible() {
-        for (WebElement item : inventoryPage.inventoryItems) {
 
-            wait.until(ExpectedConditions.visibilityOf(item));
-            Assert.assertTrue(item.findElement((By.className("inventory_item_img"))).isDisplayed());
-            Assert.assertTrue(item.findElement(By.className("inventory_item_desc")).isDisplayed());
-            Assert.assertTrue(item.findElement(By.className("inventory_item_name")).isDisplayed());
-            Assert.assertTrue(item.findElement(By.className("pricebar")).isDisplayed());
+        wait.until(ExpectedConditions.visibilityOf(inventoryPage.itemName));
+        Assert.assertTrue(inventoryPage.areAllElementsVisiblePerItem(), "Not all item elements are visible.");
 
-
-        }
 
     }
 
 
-    @Test (priority = 4)
+    @Test(priority = 4)
     public void compareProductDataAcrossUsers() throws InterruptedException {
 
 
@@ -106,7 +100,7 @@ public class InventoryTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test (priority = 4)
+    @Test(priority = 4)
     public void priceSortingLowToHigh() {
 
         inventoryPage.selectSortOption("Price (low to high)");
@@ -120,7 +114,7 @@ public class InventoryTest extends BaseTest {
     }
 
 
-    @Test (priority = 4)
+    @Test(priority = 4)
     public void priceSortingHighToLow() {
         inventoryPage.selectSortOption("Price (high to low)");
         List<Double> prices = inventoryPage.getProductPrices();
@@ -131,7 +125,7 @@ public class InventoryTest extends BaseTest {
         Assert.assertEquals(prices, sorted, "Prices are not sorted from high to low.");
     }
 
-    @Test (priority = 4)
+    @Test(priority = 4)
     public void testSortByNameAToZ() {
         inventoryPage.selectSortOption("Name (A to Z)");
 
@@ -142,7 +136,7 @@ public class InventoryTest extends BaseTest {
         Assert.assertEquals(actualNames, expectedNames, "Product names are not sorted A to Z.");
     }
 
-    @Test (priority = 4)
+    @Test(priority = 4)
     public void testSortByNameZToA() {
 
         inventoryPage.selectSortOption("Name (Z to A)");
@@ -154,7 +148,17 @@ public class InventoryTest extends BaseTest {
     }
 
 
+    @Test(priority = 1)
+    public void testAddAndRemoveAllItems() {
+        inventoryPage.addAllItemsToCart();
+        int cartCount = Integer.parseInt(inventoryPage.cartBadge.getText());
+        Assert.assertEquals(inventoryPage.addRemoveButtons.size(), cartCount);
 
+
+        inventoryPage.removeAllItemsFromCart();
+        Assert.assertEquals(inventoryPage.addToCartButton.getText(), "Add to cart");
+
+    }
 
 
     @AfterMethod
@@ -168,6 +172,9 @@ public class InventoryTest extends BaseTest {
     }
 
 }
+
+
+
 
 
 

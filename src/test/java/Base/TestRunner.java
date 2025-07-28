@@ -33,8 +33,6 @@ public class TestRunner {
             classes.add(new XmlClass("Test.LoginTest"));
 
 
-
-
             test.setXmlClasses(classes);
             tests.add(test);
         }

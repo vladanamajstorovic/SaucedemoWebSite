@@ -4,7 +4,7 @@ import org.testng.annotations.DataProvider;
 
 import java.io.IOException;
 
-public class ExcelDataProvider  {
+public class ExcelDataProvider {
 
     @DataProvider(name = "excelUsers")
     public static Object[][] getUsersFromExcel() throws IOException {

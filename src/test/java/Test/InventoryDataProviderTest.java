@@ -34,11 +34,11 @@ public class InventoryDataProviderTest extends BaseTest {
         driver.get("https://www.saucedemo.com/");
 
         wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        loginPage=new LoginPage();
-        inventoryPage=new InventoryPage();
-        burgerMenu=new BurgerMenu();
-        excelReader= new ExcelReader("C:\\Users\\vmvma\\Downloads\\Users.xlsx");
-        cartPage= new CartPage();
+        loginPage = new LoginPage();
+        inventoryPage = new InventoryPage();
+        burgerMenu = new BurgerMenu();
+        excelReader = new ExcelReader("C:\\Users\\vmvma\\Downloads\\Users.xlsx");
+        cartPage = new CartPage();
 
         //loginPage.addUsername("standard_user");
         //loginPage.addPassword("secret_sauce");
@@ -48,7 +48,6 @@ public class InventoryDataProviderTest extends BaseTest {
 
 
     ///  SA DATA PROVIDER ZA TESTIRANJE SVIH KORISNIKA IZ EXCELA SA LOGOUT
-
 
 
     @Test(dataProvider = "excelUsers", dataProviderClass = Base.ExcelDataProvider.class)
@@ -84,6 +83,7 @@ public class InventoryDataProviderTest extends BaseTest {
 
 
     }
+
     @Test(dataProvider = "excelUsers", dataProviderClass = Base.ExcelDataProvider.class)
     public void compareProductDataForUser(String username, String password) throws InterruptedException {
 
@@ -117,7 +117,6 @@ public class InventoryDataProviderTest extends BaseTest {
         }
 
         System.out.println("Running test for user: " + username);
-
 
 
         softAssert.assertAll();
@@ -200,7 +199,6 @@ public class InventoryDataProviderTest extends BaseTest {
 
 
     }
-
 
 
     @AfterMethod

@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.time.Duration;
 
 
-
 public class CheckOutTest extends BaseTest {
     @BeforeMethod
     public void pageSetUp() throws IOException {
@@ -27,7 +26,7 @@ public class CheckOutTest extends BaseTest {
         inventoryPage = new InventoryPage();
         cartPage = new CartPage();
         checkOutPage = new CheckOutPage();
-        burgerMenu= new BurgerMenu();
+        burgerMenu = new BurgerMenu();
 
 
         loginPage.addUsername("standard_user");
@@ -38,41 +37,38 @@ public class CheckOutTest extends BaseTest {
     }
 
 
-   @Test (priority = 1)
-   public void addInformationAndContinueWhenCartIsFull() throws InterruptedException {
-       inventoryPage.addRandomItemsToCart(3);
-       Thread.sleep(2000);
-       inventoryPage.clickCartButton();
-       cartPage.clickOnCheckoutTab();
-       checkOutPage.addFirstName("Milena");
-       checkOutPage.addLastName("Milic");
-       checkOutPage.addPostalCode("11000");
-       Thread.sleep(2000);
-       checkOutPage.clickContinueButton();
+    @Test(priority = 1)
+    public void addInformationAndContinueWhenCartIsFull() throws InterruptedException {
+        inventoryPage.addRandomItemsToCart(3);
+        Thread.sleep(2000);
+        inventoryPage.clickCartButton();
+        cartPage.clickOnCheckoutTab();
+        checkOutPage.addFirstName("Milena");
+        checkOutPage.addLastName("Milic");
+        checkOutPage.addPostalCode("11000");
+        Thread.sleep(2000);
+        checkOutPage.clickContinueButton();
 
-       Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/checkout-step-two.html");
-       Assert.assertTrue(checkOutPage.finishButton.isDisplayed());
-       Assert.assertTrue(checkOutPage.cartItem.isDisplayed());
-       Assert.assertTrue(checkOutPage.summary.isDisplayed());
-   }
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/checkout-step-two.html");
+        Assert.assertTrue(checkOutPage.finishButton.isDisplayed());
+        Assert.assertTrue(checkOutPage.cartItem.isDisplayed());
+        Assert.assertTrue(checkOutPage.summary.isDisplayed());
+    }
 
-   @Test (priority = 3)
+    @Test(priority = 3)
     public void addInformationAndContinueWhenCartIsEmpty() throws InterruptedException {
-       inventoryPage.clickCartButton();
-       cartPage.clickOnCheckoutTab();
-       checkOutPage.addFirstName("Milena");
-       checkOutPage.addLastName("Milic");
-       checkOutPage.addPostalCode("11000");
-       Thread.sleep(2000);
-       checkOutPage.clickContinueButton();
+        inventoryPage.clickCartButton();
+        cartPage.clickOnCheckoutTab();
+        checkOutPage.addFirstName("Milena");
+        checkOutPage.addLastName("Milic");
+        checkOutPage.addPostalCode("11000");
+        Thread.sleep(2000);
+        checkOutPage.clickContinueButton();
 
-       Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/checkout-step-two.html");
-       Assert.assertTrue(checkOutPage.finishButton.isDisplayed());
-       Assert.assertTrue(checkOutPage.summary.isDisplayed());
-   }
-
-
-
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/checkout-step-two.html");
+        Assert.assertTrue(checkOutPage.finishButton.isDisplayed());
+        Assert.assertTrue(checkOutPage.summary.isDisplayed());
+    }
 
 
     @AfterMethod

@@ -26,9 +26,9 @@ public class CheckOutCompleteTest extends BaseTest {
         inventoryPage = new InventoryPage();
         cartPage = new CartPage();
         checkOutPage = new CheckOutPage();
-        checkOutPageStepTwo=new CheckOutPageStepTwo();
-        checkOutCompletePage=new CheckOutCompletePage();
-        burgerMenu=new BurgerMenu();
+        checkOutPageStepTwo = new CheckOutPageStepTwo();
+        checkOutCompletePage = new CheckOutCompletePage();
+        burgerMenu = new BurgerMenu();
 
         loginPage.addUsername("standard_user");
         loginPage.addPassword("secret_sauce");
@@ -37,7 +37,7 @@ public class CheckOutCompleteTest extends BaseTest {
 
     }
 
-    @Test (priority = 3)
+    @Test(priority = 3)
 
     public void backToHomePage() {
         inventoryPage.clickCartButton();
@@ -50,7 +50,7 @@ public class CheckOutCompleteTest extends BaseTest {
         checkOutPageStepTwo.clickOnFinishButton();
         wait.until(ExpectedConditions.elementToBeClickable(checkOutCompletePage.backHomeButton));
         checkOutCompletePage.clickHomeButton();
-        Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/inventory.html");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
 
 
     }

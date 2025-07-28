@@ -73,57 +73,57 @@ public class CheckOutPageStepTwo {
 
     }
 
-        public double displayedTotalAmountWithoutTax () {
+    public double displayedTotalAmountWithoutTax() {
 
-            String totalText = summarySubtotalLabel.getText();
-            String totalNumeric = totalText.replaceAll("[^\\d.]", "").trim();
-            double displayedTotal = Double.parseDouble(totalNumeric);
-
-
-            return displayedTotal;
-        }
+        String totalText = summarySubtotalLabel.getText();
+        String totalNumeric = totalText.replaceAll("[^\\d.]", "").trim();
+        double displayedTotal = Double.parseDouble(totalNumeric);
 
 
-        public double calculatedTaxAmount () {
-
-            double calculatedTax = itemAmountWithoutTax() * 0.08;
-            double roundedTax = Math.round(calculatedTax * 100.0) / 100.0;
-
-            return roundedTax;
-
-        }
-
-
-        public double displayedTaxAmount () {
-
-
-            String totalText1 = summaryTaxLabel.getText();
-            String totalNumeric1 = totalText1.replaceAll("[^\\d.]", "").trim();
-            double displayedTaxTotal = Double.parseDouble(totalNumeric1);
-
-            return displayedTaxTotal;
-
-        }
-
-        public double calculatedTotal () {
-
-            Double calculatedAmount = itemAmountWithoutTax() + calculatedTaxAmount();
-            double calculatedTotalAmount = Math.round(calculatedAmount * 100.0) / 100.0;
-
-
-            return calculatedTotalAmount;
-        }
-
-
-        public double displayedTotal () {
-
-            String totalText2 = summaryTotal.getText();
-            String totalNumeric2 = totalText2.replaceAll("[^\\d.]", "").trim();
-            double displayedTotalAmount = Double.parseDouble(totalNumeric2);
-
-            return displayedTotalAmount;
-        }
+        return displayedTotal;
     }
+
+
+    public double calculatedTaxAmount() {
+
+        double calculatedTax = itemAmountWithoutTax() * 0.08;
+        double roundedTax = Math.round(calculatedTax * 100.0) / 100.0;
+
+        return roundedTax;
+
+    }
+
+
+    public double displayedTaxAmount() {
+
+
+        String totalText1 = summaryTaxLabel.getText();
+        String totalNumeric1 = totalText1.replaceAll("[^\\d.]", "").trim();
+        double displayedTaxTotal = Double.parseDouble(totalNumeric1);
+
+        return displayedTaxTotal;
+
+    }
+
+    public double calculatedTotal() {
+
+        Double calculatedAmount = itemAmountWithoutTax() + calculatedTaxAmount();
+        double calculatedTotalAmount = Math.round(calculatedAmount * 100.0) / 100.0;
+
+
+        return calculatedTotalAmount;
+    }
+
+
+    public double displayedTotal() {
+
+        String totalText2 = summaryTotal.getText();
+        String totalNumeric2 = totalText2.replaceAll("[^\\d.]", "").trim();
+        double displayedTotalAmount = Double.parseDouble(totalNumeric2);
+
+        return displayedTotalAmount;
+    }
+}
 
 
 

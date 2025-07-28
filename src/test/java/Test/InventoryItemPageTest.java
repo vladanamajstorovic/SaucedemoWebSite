@@ -25,8 +25,8 @@ public class InventoryItemPageTest extends BaseTest {
         inventoryItemPage = new InventoryItemPage();
         loginPage = new LoginPage();
         inventoryPage = new InventoryPage();
-        cartPage= new CartPage();
-        burgerMenu=new BurgerMenu();
+        cartPage = new CartPage();
+        burgerMenu = new BurgerMenu();
 
 
         loginPage.addUsername("standard_user");
@@ -38,7 +38,7 @@ public class InventoryItemPageTest extends BaseTest {
 
     //WITH SOFT ASSERT
 
-    @Test (priority = 2)
+    @Test(priority = 2)
     public void verifyAllProductDetailsVisibleForEachItem() {
 
         int totalItems = inventoryPage.inventoryItems.size();
@@ -61,7 +61,7 @@ public class InventoryItemPageTest extends BaseTest {
     }
 
 
-    @Test (priority = 1)
+    @Test(priority = 1)
     public void AddRemoveEachToFromCart() {
 
         int totalItems = inventoryPage.inventoryItems.size();
@@ -87,7 +87,7 @@ public class InventoryItemPageTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test (priority = 2)
+    @Test(priority = 2)
     public void goBackToProductsForEachItem() {
         int totalItems = inventoryPage.inventoryItems.size();
 
@@ -107,8 +107,8 @@ public class InventoryItemPageTest extends BaseTest {
 
     }
 
-    @Test (priority = 2)
-    public void goToCartPageForEachItem()  {
+    @Test(priority = 2)
+    public void goToCartPageForEachItem() {
         int totalItems = inventoryPage.inventoryItems.size();
 
 

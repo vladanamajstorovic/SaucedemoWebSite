@@ -9,7 +9,8 @@ import static Base.BaseTest.driver;
 public class CheckOutPage {
 
     public CheckOutPage() {
-        PageFactory.initElements(driver, this);}
+        PageFactory.initElements(driver, this);
+    }
 
     @FindBy(id = "postal-code")
     public WebElement postalCodeField;
@@ -37,24 +38,24 @@ public class CheckOutPage {
     public WebElement summary;
 
 
-    public void addFirstName(String firstname){
+    public void addFirstName(String firstname) {
         firstNameTab.sendKeys(firstname);
     }
 
-    public void addLastName(String lastname){
+    public void addLastName(String lastname) {
         lastNameTab.sendKeys(lastname);
     }
 
-    public void addPostalCode(String postalcode){
+    public void addPostalCode(String postalcode) {
         postalCodeField.sendKeys(postalcode);
     }
 
     public void clickContinueButton(
-    ){
+    ) {
         continueTab.click();
     }
 
-    public void clickOnFinishButton(){
+    public void clickOnFinishButton() {
         finishButton.click();
     }
 
