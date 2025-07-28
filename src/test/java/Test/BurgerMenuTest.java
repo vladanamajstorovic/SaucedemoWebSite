@@ -3,8 +3,10 @@ package Test;
 import Base.BaseTest;
 import Page.*;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -32,44 +34,45 @@ public class BurgerMenuTest extends BaseTest {
 
     }
 
-    @Test
+    @Test  (priority = 1)
     public void openBurgerMenu() throws InterruptedException {
         burgerMenu.clickOnBurgerMenuTab();
-
         Thread.sleep(2000);
         Assert.assertEquals(burgerMenu.burgerMenuWrap.getAttribute("aria-hidden"),"false");
 
     }
 
-    @Test public void openAllItems() throws InterruptedException {
+    @Test (priority = 3)
+    public void openAllItems()  {
         burgerMenu.clickOnBurgerMenuTab();
-        Thread.sleep(1000);
+        wait.until(ExpectedConditions.elementToBeClickable(burgerMenu.allItems));
         burgerMenu.clickOnAllItems();
     }
 
 
-    @Test public void openAboutSection(
-    ) throws InterruptedException {  burgerMenu.clickOnBurgerMenuTab();
-        Thread.sleep(1000);
+    @Test  (priority = 3)
+    public void openAboutSection()  {
+        burgerMenu.clickOnBurgerMenuTab();
+        wait.until(ExpectedConditions.elementToBeClickable(burgerMenu.aboutTab));
         burgerMenu.clickOnAboutTab();
         Assert.assertEquals(driver.getCurrentUrl(),"https://saucelabs.com/");
     }
 
 
-    @Test
-    public void logout() throws InterruptedException {
+    @Test (priority = 1)
+    public void logout()  {
         burgerMenu.clickOnBurgerMenuTab();
-        Thread.sleep(1000);
+        wait.until(ExpectedConditions.elementToBeClickable(burgerMenu.logutTab));
         burgerMenu.clickOnLogoutTab();
         Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/");
         Assert.assertTrue(loginPage.loginButton.isDisplayed());
     }
 
-    @Test
-    public void resetAppState() throws InterruptedException {
+    @Test (priority = 3)
+    public void resetAppState()  {
         inventoryPage.clickAddToCartButton();
         burgerMenu.clickOnBurgerMenuTab();
-        Thread.sleep(1000);
+        wait.until(ExpectedConditions.elementToBeClickable(burgerMenu.resetTab));
         burgerMenu.clickOnResetTab();
 
         boolean isPresent = false;
@@ -86,5 +89,9 @@ public class BurgerMenuTest extends BaseTest {
 
 
 
+    @AfterMethod
+    public void logoutUser() {
+        driver.close();
+    }
 
 }

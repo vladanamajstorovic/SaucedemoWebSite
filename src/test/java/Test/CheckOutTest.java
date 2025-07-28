@@ -3,15 +3,17 @@ package Test;
 import Base.BaseTest;
 import Page.*;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.time.Duration;
 
-import static Base.BaseTest.driver;
+
 
 public class CheckOutTest extends BaseTest {
     @BeforeMethod
@@ -25,6 +27,7 @@ public class CheckOutTest extends BaseTest {
         inventoryPage = new InventoryPage();
         cartPage = new CartPage();
         checkOutPage = new CheckOutPage();
+        burgerMenu= new BurgerMenu();
 
 
         loginPage.addUsername("standard_user");
@@ -35,11 +38,9 @@ public class CheckOutTest extends BaseTest {
     }
 
 
-   @Test
+   @Test (priority = 1)
    public void addInformationAndContinueWhenCartIsFull() throws InterruptedException {
-       inventoryPage.clickAddToCartButton();
-       Thread.sleep(2000);
-       inventoryPage.clickAddToCartButton();
+       inventoryPage.addRandomItemsToCart(3);
        Thread.sleep(2000);
        inventoryPage.clickCartButton();
        cartPage.clickOnCheckoutTab();
@@ -55,7 +56,7 @@ public class CheckOutTest extends BaseTest {
        Assert.assertTrue(checkOutPage.summary.isDisplayed());
    }
 
-   @Test
+   @Test (priority = 3)
     public void addInformationAndContinueWhenCartIsEmpty() throws InterruptedException {
        inventoryPage.clickCartButton();
        cartPage.clickOnCheckoutTab();
@@ -71,5 +72,17 @@ public class CheckOutTest extends BaseTest {
    }
 
 
+
+
+
+    @AfterMethod
+    public void logoutUser() throws InterruptedException {
+        wait.until(ExpectedConditions.elementToBeClickable(burgerMenu.burgerMenuTab));
+        burgerMenu.clickOnBurgerMenuTab();
+        wait.until(ExpectedConditions.elementToBeClickable(burgerMenu.logutTab));
+        burgerMenu.clickOnLogoutTab();
+        wait.until(ExpectedConditions.urlToBe("https://www.saucedemo.com/"));
+        driver.close();
+    }
 
 }

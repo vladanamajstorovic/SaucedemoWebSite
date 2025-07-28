@@ -1,13 +1,12 @@
 package Test;
 
 import Base.BaseTest;
-import Page.CartPage;
-import Page.CheckOutPage;
-import Page.InventoryPage;
-import Page.LoginPage;
+import Page.*;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -27,6 +26,7 @@ public class CartTest extends BaseTest {
         inventoryPage=new InventoryPage();
         cartPage=new CartPage();
         checkOutPage=new CheckOutPage();
+        burgerMenu= new BurgerMenu();
 
         loginPage.addUsername("standard_user");
         loginPage.addPassword("secret_sauce");
@@ -35,16 +35,16 @@ public class CartTest extends BaseTest {
     }
 
 
-    @Test
+    @Test  (priority = 1)
     public void removeFromCart() throws InterruptedException {
         inventoryPage.clickAddToCartButton();
-        Thread.sleep(1000);
+        wait.until(ExpectedConditions.elementToBeClickable(inventoryPage.cart));
         inventoryPage.clickCartButton();
         Assert.assertTrue(cartPage.removeFromCart.isDisplayed());
-        Thread.sleep(1000);
+        wait.until(ExpectedConditions.textToBePresentInElement(cartPage.cartBadge,"1"));
         Assert.assertEquals(cartPage.cartBadge.getText(),"1");
         Assert.assertEquals(cartPage.cartQuantity.getText(),"1");
-        Thread.sleep(1000);
+        wait.until(ExpectedConditions.elementToBeClickable(cartPage.removeFromCart));
         cartPage.clickRemoveFromCart();
 
 
@@ -59,37 +59,35 @@ public class CartTest extends BaseTest {
     }
 
 
-    @Test
-    public void continueShopping() throws InterruptedException {
+    @Test  (priority = 2)
+    public void continueShopping() {
         inventoryPage.clickCartButton();
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(cartPage.continueShoppingTab));
         cartPage.clickContinueShoppingTab();
         Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/inventory.html");
         Assert.assertTrue(inventoryPage.cart.isDisplayed());
     }
 
 
-    @Test
-    public void goToCheckoutWhenCartIsEmpty() throws InterruptedException {
+    @Test  (priority = 4)
+    public void goToCheckoutWhenCartIsEmpty() {
         inventoryPage.clickCartButton();
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(cartPage.checkoutTab));
         cartPage.clickOnCheckoutTab();
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.urlToBe("https://www.saucedemo.com/checkout-step-one.html"));
         Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/checkout-step-one.html");
         Assert.assertTrue(checkOutPage.postalCodeField.isDisplayed());
         Assert.assertTrue(checkOutPage.cancelTab.isDisplayed());
     }
 
 
-    @Test
+    @Test  (priority = 1)
     public void goToCheckOutWhenCartIsFull() throws InterruptedException {
-        inventoryPage.clickAddToCartButton();
-        Thread.sleep(1000);
-        inventoryPage.clickAddToCartButton();
-        Thread.sleep(1000);
+        inventoryPage.addRandomItemsToCart(2);
+        Thread.sleep(2000);
         inventoryPage.clickCartButton();
         cartPage.clickOnCheckoutTab();
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.urlToBe("https://www.saucedemo.com/checkout-step-one.html"));
         Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/checkout-step-one.html");
         Assert.assertTrue(checkOutPage.postalCodeField.isDisplayed());
         Assert.assertTrue(checkOutPage.cancelTab.isDisplayed());
@@ -97,4 +95,14 @@ public class CartTest extends BaseTest {
     }
 
 
+
+    @AfterMethod
+    public void logoutUser() {
+        wait.until(ExpectedConditions.elementToBeClickable(burgerMenu.burgerMenuTab));
+        burgerMenu.clickOnBurgerMenuTab();
+        wait.until(ExpectedConditions.elementToBeClickable(burgerMenu.logutTab));
+        burgerMenu.clickOnLogoutTab();
+        wait.until(ExpectedConditions.urlToBe("https://www.saucedemo.com/"));
+        driver.close();
+    }
 }

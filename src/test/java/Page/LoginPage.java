@@ -14,7 +14,7 @@ public class LoginPage extends BaseTest {
     }
 
     @FindBy(id = "user-name")
-    WebElement usernameField;
+    public WebElement usernameField;
 
     @FindBy(id = "password")
     WebElement passwordField;
@@ -39,7 +39,7 @@ public class LoginPage extends BaseTest {
     public WebElement errorButton;
 
     @FindBy(id = "logout_sidebar_link")
-    WebElement logoutButton;
+    public WebElement logoutButton;
 
     @FindBy(id = "react-burger-menu-btn")
     WebElement burgerMenu;

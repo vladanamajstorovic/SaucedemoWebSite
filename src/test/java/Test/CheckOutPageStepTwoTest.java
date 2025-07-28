@@ -2,20 +2,17 @@ package Test;
 
 import Base.BaseTest;
 import Page.*;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
 
 import static Base.BaseTest.driver;
 
@@ -58,95 +55,80 @@ public class CheckOutPageStepTwoTest extends BaseTest {
 
 }
 
-    @Test
+    @Test (priority = 1)
     public void finishOrderWhenCartIsFull() throws InterruptedException {
-        inventoryPage.clickAddToCartButton();
-        Thread.sleep(2000);
-        inventoryPage.clickAddToCartButton();
-        Thread.sleep(2000);
+        inventoryPage.addRandomItemsToCart(4);
         inventoryPage.clickCartButton();
         cartPage.clickOnCheckoutTab();
         checkOutPage.addFirstName("Milena");
         checkOutPage.addLastName("Milic");
         checkOutPage.addPostalCode("11000");
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(checkOutPage.continueTab));
         checkOutPage.clickContinueButton();
         checkOutPageStepTwo.clickOnFinishButton();
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(checkOutCompletePage.backHomeButton));
         Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/checkout-complete.html");
         Assert.assertEquals(checkOutCompletePage.header.getText(),"Thank you for your order!");
         Assert.assertTrue(checkOutCompletePage.backHomeButton.isDisplayed());
 
     }
 
-    @Test
+    @Test (priority = 1)
     public void totalPriceCounterWorksCorrectlyForDifferentCurrencies() throws InterruptedException {
 
-        inventoryPage.clickAddToCartButton();
-        Thread.sleep(1000);
-        inventoryPage.clickAddToCartButton();
-        Thread.sleep(1000);
-        inventoryPage.clickAddToCartButton();
-        Thread.sleep(1000);
+        inventoryPage.addRandomItemsToCart(4);
         inventoryPage.clickCartButton();
-        Thread.sleep(1000);
+        wait.until(ExpectedConditions.elementToBeClickable(cartPage.checkoutTab));
         cartPage.clickOnCheckoutTab();
         checkOutPage.addFirstName("Milena");
         checkOutPage.addLastName("Milic");
         checkOutPage.addPostalCode("11000");
         Thread.sleep(2000);
         checkOutPage.clickContinueButton();
-        List<WebElement> priceElements = driver.findElements(By.className("inventory_item_price"));
 
 
         //ITEM AMOUNT WITHOUT TAX
-        double calculatedTotal = 0.0;
+        checkOutPageStepTwo.itemAmountWithoutTax();
+        System.out.println("Calculated amount without TAX: $" + checkOutPageStepTwo.itemAmountWithoutTax());
 
-        for (WebElement priceElement : priceElements) {
-            String priceText = priceElement.getText(); // npr "$12.99"
-            String numericPart = priceText.replaceAll("[^\\d.]", "").trim(); // "12.99"
-            double price = Double.parseDouble(numericPart);
-            calculatedTotal += price;
-        }
+        //ITEM DISPLAYED TOTAL
+        checkOutPageStepTwo.displayedTotalAmountWithoutTax();
+        System.out.println("Displayed amount without TAX: $" + checkOutPageStepTwo.displayedTotalAmountWithoutTax());
 
-        System.out.println("Suma artikala: $" + calculatedTotal);
 
-        Thread.sleep(2000);
-        String totalText = checkOutPageStepTwo.summarySubtotalLabel.getText(); // npr "$25.98"
-        String totalNumeric = totalText.replaceAll("[^\\d.]", "").trim();
-        double displayedTotal= Double.parseDouble(totalNumeric);
-
-        System.out.println("Suma Total: $" + displayedTotal);
-
-        Assert.assertEquals(displayedTotal, calculatedTotal);
+        Assert.assertEquals(checkOutPageStepTwo.displayedTotalAmountWithoutTax(), checkOutPageStepTwo.itemAmountWithoutTax());
 
 
         //TAX AMOUNT
-        double calculatedTax=calculatedTotal*0.08;
-        System.out.println("Tax: $" + calculatedTax);
-        double roundedTax = Math.round(calculatedTax * 100.0) / 100.0;
+       checkOutPageStepTwo.calculatedTaxAmount();
+        System.out.println("Calculated TAX: $" + checkOutPageStepTwo.calculatedTaxAmount());
 
-        String totalText1 = checkOutPageStepTwo.summaryTaxLabel.getText();
-        String totalNumeric1 = totalText1.replaceAll("[^\\d.]", "").trim();
-        double displayedTaxTotal= Double.parseDouble(totalNumeric1);
+        checkOutPageStepTwo.displayedTaxAmount();
+        System.out.println("Displayed TAX: $" +checkOutPageStepTwo.displayedTaxAmount());
 
 
-        Assert.assertEquals(displayedTaxTotal,roundedTax);
+        Assert.assertEquals(checkOutPageStepTwo.displayedTaxAmount(),checkOutPageStepTwo.calculatedTaxAmount());
 
 
         //TOTAL AMOUNT
-       Double calculatedTotalAmount=calculatedTotal+roundedTax;
+        checkOutPageStepTwo.displayedTotal();
+        System.out.println("Displayed total including TAX: $" + checkOutPageStepTwo.displayedTotal());
 
-
-        String totalText2 = checkOutPageStepTwo.summaryTotal.getText();
-        String totalNumeric2 = totalText2.replaceAll("[^\\d.]", "").trim();
-        double displayedTotalAmount= Double.parseDouble(totalNumeric2);
-
-        Assert.assertEquals(displayedTotalAmount,calculatedTotalAmount);
+        checkOutPageStepTwo.calculatedTotal();
+        System.out.println("Calculated Total including TAX: $" + checkOutPageStepTwo.calculatedTotal());
 
 
 
+        Assert.assertEquals(checkOutPageStepTwo.displayedTotal(),checkOutPageStepTwo.calculatedTotal());
 
+
+
+
+    }
+
+    @AfterMethod
+    public void driverClose() {
+        driver.close();
     }
 
 }
